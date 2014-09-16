@@ -1,4 +1,4 @@
-var Bitcoin = require('bicoinjs-lib');
+var Bitcoin = require('bitcoinjs-lib');
 
 var MakeWallet = {
   // your code goes here
