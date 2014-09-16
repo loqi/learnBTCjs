@@ -3,12 +3,19 @@ var expect = require('chai').expect;
 
 var makeWallet = require(path.join(__dirname, '..', './makeWallet.js'));
 
-describe('makeWallet()', function () {
+describe('makeWallet', function () {
   'use strict';
 
   it('exists', function () {
     expect(makeWallet).to.be.a('object');
+  });
 
+  it('should have a .generatePrivateKey method', function () {
+    expect(makeWallet.generatePrivateKey).to.be.a('function');
+  });
+
+  it('should have a .generatePublicAddress method', function () {
+    expect(makeWallet.generatePublicAddress).to.be.a('function');
   });
 
   describe('.generatePrivateKey', function(){
@@ -24,11 +31,14 @@ describe('makeWallet()', function () {
       expect(firstPrivateKey).to.not.equal(secondPrivateKey);
     });
     
-  })
-
-  it('does something else', function () {
-    expect(true).to.equal(false);
   });
 
-  // Add more assertions here
+  describe('.generatePublicAddress', function(){
+    
+    it('does something else', function () {
+      expect(true).to.equal(false);
+    });
+
+  });
+
 });

@@ -5,7 +5,7 @@ var MakeWallet = {
   
 };
 
-MakeWallet.prototype.generatePrivateKey = function(){
+MakeWallet.generatePrivateKey = function(){
   // Generate WIF key
 };
 
