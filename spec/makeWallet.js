@@ -1,6 +1,7 @@
 var path = require('path');
 var expect = require('chai').expect;
 var Bitcoin = require('bitcoinjs-lib');
+var base58check = require('bs58check');
 
 var MakeWallet = require(path.join(__dirname, '..', './makeWallet.js'));
 
@@ -43,7 +44,7 @@ describe('MakeWallet', function () {
     });
 
     it('should be base58 format', function(){
-      expect(Bitcoin.Address.fromBase58Check(wallet.address)).to.be.ok;
+      expect(base58check.decode(wallet.address)).to.be.ok;
     });
 
     it('should be a testnet wallet', function(){
@@ -53,7 +54,23 @@ describe('MakeWallet', function () {
   });
 
   describe('privateKey', function(){
-    
+
+    it('should be a string', function(){
+      expect(wallet.privateKey).to.be.a('string');
+    });
+
+    it('should be correct length', function(){
+      expect(wallet.privateKey.length).to.equal(52);
+    });
+
+    it('should be base58 format', function(){
+      expect(base58check.decode(wallet.privateKey)).to.be.ok;
+    });
+
+    it('should be a testnet private key', function(){
+      expect(wallet.privateKey[0]).to.match(/K|L/);
+    });
+
   });
     
 });
