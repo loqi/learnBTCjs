@@ -1,44 +1,59 @@
 var path = require('path');
 var expect = require('chai').expect;
+var Bitcoin = require('bitcoinjs-lib');
 
-var makeWallet = require(path.join(__dirname, '..', './makeWallet.js'));
+var MakeWallet = require(path.join(__dirname, '..', './makeWallet.js'));
 
-describe('makeWallet', function () {
+describe('MakeWallet', function () {
   'use strict';
+  var wallet;
+
+  beforeEach(function(){
+    wallet = new MakeWallet();
+  });
 
   it('exists', function () {
-    expect(makeWallet).to.be.a('object');
+    expect(MakeWallet).to.be.a('function');
+  });
+  
+  it('should return an object', function () {
+    expect(wallet).to.be.a('object');
   });
 
-  it('should have a .generatePrivateKey method', function () {
-    expect(makeWallet.generatePrivateKey).to.be.a('function');
+  it('should have an address property', function(){
+    expect(wallet.address).to.be.ok;
   });
 
-  it('should have a .generatePublicAddress method', function () {
-    expect(makeWallet.generatePublicAddress).to.be.a('function');
+  it('should have a privateKey property', function(){
+    expect(wallet.privateKey).to.be.ok;
   });
 
-  describe('.generatePrivateKey', function(){
-    
-    it('should return a string', function () {
-      var privateKey = makeWallet.generatePrivateKey();
-      expect(privateKey).to.be.a('string');
+  it('should have a balance property', function(){
+    expect(wallet.balance).to.be.ok;
+  });
+
+  describe('address', function(){
+
+    it('should be a string', function(){
+      expect(wallet.address).to.be.a('string');
     });
 
-    it('should return a unique output', function(){
-      var firstPrivateKey = makeWallet.generatePrivateKey();
-      var secondPrivateKey = makeWallet.generatePrivateKey();
-      expect(firstPrivateKey).to.not.equal(secondPrivateKey);
+    it('should be correct length', function(){
+      expect(wallet.address.length).to.equal(34);
     });
-    
-  });
 
-  describe('.generatePublicAddress', function(){
-    
-    it('does something else', function () {
-      expect(true).to.equal(false);
+    it('should be base58 format', function(){
+      expect(Bitcoin.Address.fromBase58Check(wallet.address)).to.be.ok;
+    });
+
+    it('should be a testnet wallet', function(){
+      expect(wallet.address[0]).to.match(/m|n/);
     });
 
   });
 
+  describe('privateKey', function(){
+    
+  });
+    
 });

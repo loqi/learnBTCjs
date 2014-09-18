@@ -1,12 +1,8 @@
 var Bitcoin = require('bitcoinjs-lib');
 
-var MakeWallet = {
+var MakeWallet = function(){
   // your code goes here
   
-};
-
-MakeWallet.generatePrivateKey = function(){
-  // Generate WIF key
 };
 
 module.exports = MakeWallet;
